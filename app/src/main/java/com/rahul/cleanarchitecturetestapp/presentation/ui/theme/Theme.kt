@@ -1,4 +1,4 @@
-package com.rahul.cleanarchitecturetestapp.ui.theme
+package com.rahul.cleanarchitecturetestapp.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

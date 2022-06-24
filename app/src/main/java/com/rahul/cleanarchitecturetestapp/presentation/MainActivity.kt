@@ -1,5 +1,6 @@
-package com.rahul.cleanarchitecturetestapp
+package com.rahul.cleanarchitecturetestapp.presentation
 
+import CoinDetailScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,8 +11,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.rahul.cleanarchitecturetestapp.ui.theme.CleanArchitectureTestAppTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.rahul.cleanarchitecturetestapp.presentation.coin_list.CoinListScreen
+import com.rahul.cleanarchitecturetestapp.presentation.ui.theme.CleanArchitectureTestAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +30,20 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screens.CoinListScreen.route
+                    ) {
+                        composable(route = Screens.CoinListScreen.route)
+                        {
+                            CoinListScreen(navController)
+                        }
+                        composable(route = Screens.CoinDetailsScreen.route + "/{coinId}")
+                        {
+                            CoinDetailScreen()
+                        }
+                    }
                 }
             }
         }
